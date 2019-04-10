@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import base64
 from math import gcd
 
 def lcm(p, q):
@@ -21,7 +22,6 @@ def generate_keys(p, q):
             E = i
             break
 
-    """
     for i in range(2, L):
         if (E * i) % L == 1:
             D = i
@@ -33,10 +33,12 @@ def generate_keys(p, q):
             D = (i * L + 1) // E
             break
         i += 1
+    """
 
     return (E, N), (D, N)
 
 
+'''
 def encrypt(plain_text, public_key):
     """
     公開鍵 public_key を使って平文 plain_text を暗号化する。
@@ -47,14 +49,37 @@ def encrypt(plain_text, public_key):
     encrypted_text = ''.join(chr(i) for i in encrypted_integers)
 
     return encrypted_text
+'''
+def encrypt(plain_text, public_key):
+    """
+    公開鍵 public_key を使って平文 plain_text を暗号化する。
+    """
+    E, N = public_key
+    plain_integers = [ord(char) for char in plain_text]
+    encrypted_integers = [pow(i, E, N) for i in plain_integers]
+    encrypted_text = ''.join(format(i, "04x") for i in encrypted_integers)
+
+    return encrypted_text
 
 
+'''
 def decrypt(encrypted_text, private_key):
     """
     秘密鍵 private_key を使って暗号文 encrypted_text を復号化する。
     """
     D, N = private_key
     encrypted_integers = [ord(char) for char in encrypted_text]
+    decrypted_intergers = [pow(i, D, N) for i in encrypted_integers]
+    decrypted_text = ''.join(chr(i) for i in decrypted_intergers)
+
+    return decrypted_text
+'''
+def decrypt(encrypted_text, private_key):
+    """
+    秘密鍵 private_key を使って暗号文 encrypted_text を復号化する。
+    """
+    D, N = private_key
+    encrypted_integers = [int(char,16) for char in encrypted_text]
     decrypted_intergers = [pow(i, D, N) for i in encrypted_integers]
     decrypted_text = ''.join(chr(i) for i in decrypted_intergers)
 

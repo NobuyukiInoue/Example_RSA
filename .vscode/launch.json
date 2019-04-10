@@ -10,11 +10,48 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
-            /*
+        },
+        {
+            "name": "Python: Create_Key",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
             "args":[
-                "../testdata.txt"
+                "create_key"
             ]
-            */
+        },
+        {
+            "name": "Python: encrypt",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args":[
+                "encrypt",
+                "平文ファイル.txt"
+            ]
+        },
+        {
+            "name": "Python: decrypt",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args":[
+                "decrypt",
+                "暗号文ファイル.txt"
+            ]
+        },
+        {
+            "name": "Python: base64_work",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args":[
+                "./base64_work/image.jpg"
+            ]
         },
         {
             "name": "Python: Attach",
