@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from msvcrt import getch
+if __name__ == "msvcrt":
+    from msvcrt import getch    # for MS-Windows
+if __name__ == "getch":
+    import getch                # for macOS/Linux
+
 import os
 import sys
-
 from my_modules import rsa
 
 
@@ -15,19 +18,18 @@ def main():
         print("Usage: python %s [encrypt | decrypt | create_key] [平文ファイル | 暗号化ファイル] [公開鍵ファイル | 秘密鍵ファイル] [sjis | utf-8]" %(argv[0]))
         print("example1) -- create_key\n"
               "python rsa_main.py create_key\n\n"
-              "example2-1) -- encrypt(Windows)\n"
-              "python rsa_main.py encrypt clearfile.txt rsa_public.key sjis\n\n"
-              "example2-2) -- encrypt(macOS/Linux)\n"
+              "example2-1) -- encrypt(macOS/Linux)\n"
               "python rsa_main.py encrypt clearfile.txt rsa_public.key utf-8\n\n"
-              "example3-1) -- decrypt(Windows)\n"
-              "python rsa_main.py decrypt encrypted.txt rsa_private.key sjis\n\n"
-              "example3-2) -- decrypt(macOS/Linux)\n"
-              "python rsa_main.py decrypt encrypted.txt rsa_private.key utf-8\n\n")
+              "example2-2) -- decrypt(macOS/Linux)\n"
+              "python rsa_main.py decrypt encrypted.txt rsa_private.key utf-8\n\n"
+              "example3-1) -- encrypt(Windows)\n"
+              "python rsa_main.py encrypt clearfile.txt rsa_public.key sjis\n\n"
+              "example3-2) -- decrypt(Windows)\n"
+              "python rsa_main.py decrypt encrypted.txt rsa_private.key sjis\n\n")
         exit(0)
 
     if argv[1] == "create_key":
         create_key()
-
     else:
         if argc < 4:           
             print("Usage: python %s [encrypt | decrypt | create_key] [平文ファイル | 暗号化ファイル] [公開鍵ファイル | 秘密鍵ファイル] [sjis | utf-8]" %(argv[0]))
@@ -43,16 +45,18 @@ def main():
             print("%s not found..." %keyfile)
             exit(0)
 
-        if argc == 5:
+        if argc >= 5:
             char_code = argv[4]
         else:
             char_code = "utf-8"
 
         if argv[1] == "encrypt":
             encrypt(keyfile, filename, char_code)
-
         elif argv[1] == "decrypt":
             decrypt(keyfile, filename, char_code)
+        else:
+            print("Usage: python %s [encrypt | decrypt | create_key] [平文ファイル | 暗号化ファイル] [公開鍵ファイル | 秘密鍵ファイル] [sjis | utf-8]" %(argv[0]))
+            exit(0)
 
 
 def create_key():
@@ -109,13 +113,18 @@ def read_key(keyfilename):
     return (int(flds[0]), int(flds[1]))
 
 
-def encrypt(keyfile, cleartext_fname, char_code):
+def encrypt(keyfile, filename, char_code):
     """鍵ファイルから公開鍵を読み込む"""
     public_key = read_key(keyfile)
 
     """平文ファイルを読み込む"""
-    f = open(cleartext_fname, "rt", encoding=char_code)
-    lines = f.readlines()
+    f = open(filename, "rt", encoding=char_code)
+    try:
+        lines = f.readlines()
+    except UnicodeDecodeError as e:
+        print(e)
+        print("%s の文字コードは %s ではないかもしれません。" %(filename, char_code))
+        exit(0)
 
     plain_text = ""
     for line in lines:
@@ -132,7 +141,12 @@ def decrypt(keyfile, filename, char_code):
 
     """暗号文ファイルを読み込む"""
     f = open(filename, "r", encoding=char_code)
-    lines = f.readlines()
+    try:
+        lines = f.readlines()
+    except UnicodeDecodeError as e:
+        print(e)
+        print("%s の文字コードは %s ではないかもしれません。" %(filename, char_code))
+        exit(0)
 
     encrypted_text = ""
     for line in lines:
