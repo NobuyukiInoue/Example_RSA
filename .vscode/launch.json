@@ -29,7 +29,9 @@
             "console": "integratedTerminal",
             "args":[
                 "encrypt",
-                "平文ファイル.txt"
+                "平文ファイル_sjis.txt",
+                "rsa_public.key",
+                "sjis"
             ]
         },
         {
@@ -40,7 +42,9 @@
             "console": "integratedTerminal",
             "args":[
                 "decrypt",
-                "暗号文ファイル.txt"
+                "暗号文ファイル_sjis.txt",
+                "rsa_private.key",
+                "sjis"
             ]
         },
         {
