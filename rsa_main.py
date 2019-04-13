@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 
-if __name__ == "msvcrt":
-    from msvcrt import getch    # for MS-Windows
-if __name__ == "getch":
-    import getch                # for macOS/Linux
-
+from my_modules.getch import getch
 import os
 import sys
 from my_modules import rsa
