@@ -124,7 +124,7 @@ def decrypt(filename):
         encrypted_text += line
 
     """復号化および結果の出力"""
-    decrypted_text = rsa.decrypt(encrypted_text, private_key)
+    decrypted_text = rsa.decrypt(encrypted_text.strip(), private_key)
     print(decrypted_text)
 
 
