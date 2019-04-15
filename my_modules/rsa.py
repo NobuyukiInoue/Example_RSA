@@ -38,7 +38,7 @@ def generate_keys(p, q):
     return (E, N), (D, N)
 
 
-def encrypt(plain_text, public_key):
+def encrypt_from_text(plain_text, public_key):
     """
     公開鍵 public_key を使って平文 plain_text を暗号化する。
     """
@@ -56,7 +56,7 @@ def encrypt(plain_text, public_key):
     return encrypted_text
 
 
-def decrypt(encrypted_text, private_key):
+def decrypt_to_text(encrypted_text, private_key):
     """
     秘密鍵 private_key を使って暗号文 encrypted_text を復号化する。
     """
@@ -68,12 +68,32 @@ def decrypt(encrypted_text, private_key):
         encrypted_integers.append(int(encrypted_text[i:i+8], 16))
 
     """秘密鍵の２つの素数を使って、復号後の数値を求める"""
-    decrypted_intergers = [pow(i, D, N) for i in encrypted_integers]
+    decrypted_integers = [pow(i, D, N) for i in encrypted_integers]
 
     """復号後の数値を文字に変換し、連結する"""
-    decrypted_text = ''.join(chr(i) for i in decrypted_intergers)
+    decrypted_text = ''.join(chr(i) for i in decrypted_integers)
 
     return decrypted_text
+
+
+def encrypt_from_binary(plain_integers, public_key):
+    """
+    公開鍵 public_key を使って平文 plain_text を暗号化する。
+    """
+    E, N = public_key
+
+    """公開鍵の２つの素数を使って暗号化後の数値を生成する"""
+    return [pow(i, E, N) for i in plain_integers]
+
+
+def decrypt_to_binary(encrypted_integers, private_key):
+    """
+    秘密鍵 private_key を使って暗号文 encrypted_text を復号化する。
+    """
+    D, N = private_key
+    
+    """秘密鍵の２つの素数を使って、復号後の数値を求める"""
+    return [pow(i, D, N) for i in encrypted_integers]
 
 
 def sanitize(encrypted_text):

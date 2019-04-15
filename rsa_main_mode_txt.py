@@ -11,34 +11,21 @@ def main():
     argc = len(argv)
 
     if argc < 2:
-        print("Usage: python %s [encrypt | decrypt | create_key] [平文ファイル | 暗号化ファイル] [公開鍵ファイル | 秘密鍵ファイル] [sjis | utf-8]" %(argv[0]))
-        print("example1) -- create_key\n"
-              "python rsa_main.py create_key\n\n"
-              "example2-1) -- encrypt(macOS/Linux)\n"
-              "python rsa_main.py encrypt clearfile.txt rsa_public.key utf-8\n\n"
-              "example2-2) -- decrypt(macOS/Linux)\n"
-              "python rsa_main.py decrypt encrypted.txt rsa_private.key utf-8\n\n"
-              "example3-1) -- encrypt(Windows)\n"
-              "python rsa_main.py encrypt clearfile.txt rsa_public.key sjis\n\n"
-              "example3-2) -- decrypt(Windows)\n"
-              "python rsa_main.py decrypt encrypted.txt rsa_private.key sjis\n\n")
-        exit(0)
-
-    if argv[1] == "create_key":
+        exit_msg(argv[0])
+    if argv[1] == "create_key" or argv[1] == "key":
         create_key()
     else:
         if argc < 4:           
-            print("Usage: python %s [encrypt | decrypt | create_key] [平文ファイル | 暗号化ファイル] [公開鍵ファイル | 秘密鍵ファイル] [sjis | utf-8]" %(argv[0]))
-            exit(0)
+            exit_msg(argv[0])
 
         filename = argv[2]
         if not os.path.exists(filename):
-            print("%s not found..." %filename)
+            print("%s not found." %filename)
             exit(0)
         
         keyfile = argv[3]
         if not os.path.exists(keyfile):
-            print("%s not found..." %keyfile)
+            print("%s not found." %keyfile)
             exit(0)
 
         if argc >= 5:
@@ -46,13 +33,26 @@ def main():
         else:
             char_code = "utf-8"
 
-        if argv[1] == "encrypt":
+        if argv[1] == "encrypt" or argv[1] == "enc":
             encrypt(keyfile, filename, char_code)
-        elif argv[1] == "decrypt":
+        elif argv[1] == "decrypt" or argv[1] == "dec":
             decrypt(keyfile, filename, char_code)
         else:
-            print("Usage: python %s [encrypt | decrypt | create_key] [平文ファイル | 暗号化ファイル] [公開鍵ファイル | 秘密鍵ファイル] [sjis | utf-8]" %(argv[0]))
-            exit(0)
+            exit_msg(argv[0])
+
+def exit_msg(argv0):
+    print("Usage: python %s [encrypt | decrypt | create_key] [平文ファイル | 暗号化ファイル] [公開鍵ファイル | 秘密鍵ファイル] [sjis | utf-8]" %argv0)
+    print("example1) -- create_key\n"
+            "python rsa_main.py create_key\n\n"
+            "example2-1) -- encrypt(macOS/Linux)\n"
+            "python rsa_main.py encrypt clearfile.txt rsa_public.key utf-8\n\n"
+            "example2-2) -- decrypt(macOS/Linux)\n"
+            "python rsa_main.py decrypt encrypted.txt rsa_private.key utf-8\n\n"
+            "example3-1) -- encrypt(Windows)\n"
+            "python rsa_main.py encrypt clearfile.txt rsa_public.key sjis\n\n"
+            "example3-2) -- decrypt(Windows)\n"
+            "python rsa_main.py decrypt encrypted.txt rsa_private.key sjis\n\n")
+    exit(0)
 
 
 def create_key():
@@ -127,7 +127,7 @@ def encrypt(keyfile, filename, char_code):
         plain_text += line
 
     """暗号化および結果の出力"""
-    encrypted_text = rsa.encrypt(plain_text, public_key)
+    encrypted_text = rsa.encrypt_from_text(plain_text, public_key)
     print(encrypted_text)
 
 
@@ -149,7 +149,8 @@ def decrypt(keyfile, filename, char_code):
         encrypted_text += line
 
     """復号化および結果の出力"""
-    decrypted_text = rsa.decrypt(encrypted_text.strip(), private_key)
+    decrypted_text = rsa.decrypt_to_text(encrypted_text.strip(), private_key)
+
     print(decrypted_text)
 
 

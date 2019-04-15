@@ -19,11 +19,11 @@ def main():
     print("平文:%s" %plain_text)
 
     """暗号文を生成する"""
-    encrypted_text = rsa.encrypt(plain_text, public_key)
+    encrypted_text = rsa.encrypt_from_text(plain_text, public_key)
     print("暗号文:%s" %rsa.sanitize(encrypted_text))
 
     """暗号文から平文を復元する"""
-    decrypted_text = rsa.decrypt(encrypted_text, private_key)
+    decrypted_text = rsa.decrypt_to_text(encrypted_text, private_key)
     print("平文:%s" %decrypted_text)
 
 

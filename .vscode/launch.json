@@ -48,6 +48,58 @@
             ]
         },
         {
+            "name": "Python: rsa_binary.py encrypt1",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args":[
+                "encrypt",
+                "平文ファイル_sjis.txt",
+                "result.bin",
+                "rsa_public.key"
+            ]
+        },
+        {
+            "name": "Python: rsa_binary.py decrypt1",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args":[
+                "decrypt",
+                "result.bin",
+                "result.txt",
+                "rsa_private.key"
+            ]
+        },
+        {
+            "name": "Python: rsa_binary.py encrypt2",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args":[
+                "encrypt",
+                "./base64_work/image.jpg",
+                "image.bin",
+                "rsa_public.key"
+            ]
+        },
+        {
+            "name": "Python: rsa_binary.py decrypt2",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args":[
+                "decrypt",
+                "image.bin",
+                "image.jpg",
+                "rsa_private.key"
+            ]
+        },
+        {
             "name": "Python: base64_work",
             "type": "python",
             "request": "launch",
