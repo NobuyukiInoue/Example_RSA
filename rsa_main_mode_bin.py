@@ -14,7 +14,7 @@ def main():
     if argc < 2:
         exit_msg(argv[0])
 
-    if argv[1] == "create_key" or "key":
+    if argv[1] == "create_key" or argv[1] == "key":
         create_key()
     else:
         if argc < 5:           
@@ -68,7 +68,9 @@ def create_key():
     check_exists(private_key_filename)
 
     """公開鍵と秘密鍵を生成"""
-    public_key, private_key = rsa.generate_keys(101, 3259)
+    # 30番目の素数以上、3000以下の素数からp, q を選ぶ
+    p, q = rsa.calc_p_q(30, 3000)
+    public_key, private_key = rsa.generate_keys(p, q)
 
     with open(public_key_filename, mode='w') as f:
         f.writelines("%d,%d" %(public_key[0], public_key[1]))

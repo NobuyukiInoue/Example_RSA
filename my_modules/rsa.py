@@ -1,13 +1,63 @@
 # -*- coding: utf-8 -*-
 
 import base64
-from math import gcd
+import math
+import random
+
+
+def calc_p_q(primeNumber_indexMin, primeNumber_Max):
+    """２つの素数(p, q)を求める"""
+
+    """primeNumber_Max以下の素数のリストを取得する"""
+    prime_list = sieve_of_eratosthenes(primeNumber_Max)
+
+    """p*qの下限値をセット"""
+    lower = math.pow(2, 16)
+
+    while True:
+        """primeNumber_indexMin以上、(len(prime_list) - 1)以下の数値の乱数を生成する"""
+        x = random.randrange(primeNumber_indexMin, len(prime_list) - 1, 1)
+        while True:
+            """primeNumber_indexMin以上、(len(prime_list) - 1)以下の数値の乱数を生成する"""
+            y = random.randrange(primeNumber_indexMin, len(prime_list) - 1, 1)
+            if y != x:
+                break
+        if x * y > lower:
+            break
+ 
+    """得られた２つの素数を返す"""
+    return prime_list[x], prime_list[y]
+
+
+def sieve_of_eratosthenes(primeNumber_Max):
+    """エラトステネスのふるいを利用して素数の配列を生成する"""
+
+    dest = int(math.sqrt(primeNumber_Max))
+    target_list = list(range(2, primeNumber_Max + 1))
+    prime_list = []
+ 
+    while True:
+        num_min = min(target_list)
+        if num_min >= dest:
+            prime_list.extend(target_list)
+            break
+        prime_list.append(num_min)
+ 
+        i = 0
+        while True:
+            if i >= len(target_list):
+                break
+            elif target_list[i] % num_min == 0:
+                target_list.pop(i)
+            i += 1
+
+    return prime_list
 
 def lcm(p, q):
     """
     最小公倍数を求める。
     """
-    return (p * q) // gcd(p, q)
+    return (p * q) // math.gcd(p, q)
 
 
 def generate_keys(p, q):
@@ -18,7 +68,7 @@ def generate_keys(p, q):
     L = lcm(p - 1, q - 1)
 
     for i in range(2, L):
-        if gcd(i, L) == 1:
+        if math.gcd(i, L) == 1:
             E = i
             break
 
