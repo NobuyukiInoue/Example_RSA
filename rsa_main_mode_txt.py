@@ -44,15 +44,15 @@ def main():
 def exit_msg(argv0):
     print("Usage: python %s [encrypt | decrypt | create_key] [平文ファイル | 暗号化ファイル] [公開鍵ファイル | 秘密鍵ファイル] [sjis | utf-8]" %argv0)
     print("example1) -- create_key\n"
-            "python rsa_main.py create_key\n\n"
+            "python rsa_main_mode_txt.py create_key\n\n"
             "example2-1) -- encrypt(macOS/Linux)\n"
-            "python rsa_main.py encrypt clearfile.txt rsa_public.key utf-8\n\n"
+            "python rsa_main_mode_txt.py encrypt clearfile.txt rsa_public.key utf-8\n\n"
             "example2-2) -- decrypt(macOS/Linux)\n"
-            "python rsa_main.py decrypt encrypted.txt rsa_private.key utf-8\n\n"
+            "python rsa_main_mode_txt.py decrypt encrypted.txt rsa_private.key utf-8\n\n"
             "example3-1) -- encrypt(Windows)\n"
-            "python rsa_main.py encrypt clearfile.txt rsa_public.key sjis\n\n"
+            "python rsa_main_mode_txt.py encrypt clearfile.txt rsa_public.key sjis\n\n"
             "example3-2) -- decrypt(Windows)\n"
-            "python rsa_main.py decrypt encrypted.txt rsa_private.key sjis\n\n")
+            "python rsa_main_mode_txt.py decrypt encrypted.txt rsa_private.key sjis\n\n")
     exit(0)
 
 

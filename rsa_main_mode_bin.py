@@ -42,13 +42,13 @@ def main():
 
 
 def exit_msg(argv0):
-    print("Usage: python %s [encrypt | decrypt | create_key] [変換前ファイル] [変換後ファイル] [公開鍵ファイル] | 秘密鍵ファイル]" %argv0)
+    print("Usage: python %s [encrypt | decrypt | create_key] [変換前ファイル] [変換後ファイル] [公開鍵ファイル | 秘密鍵ファイル]" %argv0)
     print("example1) -- create_key\n"
-            "python rsa_main.py create_key\n\n"
+            "python rsa_main_mode_bin.py create_key\n\n"
             "example2) -- encrypt"
-            "python rsa_main.py encrypt file1 file2 rsa_public.key\n\n"
+            "python rsa_main_mode_bin.py encrypt file1 file2 rsa_public.key\n\n"
             "example3) -- decrypt"
-            "python rsa_main.py decrypt file2 file1 rsa_private.key\n\n")
+            "python rsa_main_mode_bin.py decrypt file2 file1 rsa_private.key\n\n")
     exit(0)
 
 
