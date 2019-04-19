@@ -15,6 +15,11 @@ file1=${3}
 file2=${4}
 file3=${5}
 
+if [ $# -ge 6 ]; then
+    mode=${6}
+else
+    mode=1
+fi
 
 ##--------------------------------------------------------##
 ## 検証対象プログラムの指定
@@ -49,10 +54,19 @@ fi
 ## 公開鍵／秘密鍵ファイルの生成
 ##--------------------------------------------------------##
 
-python $cmd_rsa_main create_key <<EOS
+if [ $mode -eq 1 ]; then
+    python $cmd_rsa_main create_key <<EOS
 $keyfile1
 $keyfile2
 EOS
+
+else
+    python $cmd_rsa_main create_key <<EOS
+$keyfile2
+$keyfile1
+EOS
+
+fi
 
 
 ##--------------------------------------------------------##
@@ -72,6 +86,7 @@ printf "\033[0;39m"
 ## 暗号化処理
 ##--------------------------------------------------------##
 
+printf "python $cmd_rsa_main encrypt $file1 $file2 $keyfile1\n"
 python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
 
 
@@ -79,6 +94,7 @@ python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
 ## 復号化処理
 ##--------------------------------------------------------##
 
+printf "python $cmd_rsa_main decrypt $file2 $file3 $keyfile2\n"
 python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
 
 

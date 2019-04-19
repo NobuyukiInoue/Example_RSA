@@ -1,6 +1,6 @@
-param($keyfile1, $keyfile2, $file1, $file2, $file3)
+param($keyfile1, $keyfile2, $file1, $file2, $file3, $mode)
 
-Write-Host $MyInvocation.MyCommand.Name $keyfile1 $keyfile2 $file1 $file2 $file3
+Write-Host $MyInvocation.MyCommand.Name $keyfile1 $keyfile2 $file1 $file2 $file3 $mode
 
 ##--------------------------------------------------------##
 ## 引数チェック
@@ -8,8 +8,12 @@ Write-Host $MyInvocation.MyCommand.Name $keyfile1 $keyfile2 $file1 $file2 $file3
 
 if (-Not($keyfile1) -Or -Not($keyfile2) -Or -Not($file1) -Or -Not($file2) -Or -Not($file3)) {
     Write-Host $keyfile1 $keyfile2 $file1 $file2 $file3
-    Write-Host "Usage :"$MyInvocation.MyCommand.Name" public_key private_key org_file encrypted_file decrypted_file"
+    Write-Host "Usage :"$MyInvocation.MyCommand.Name" public_key private_key org_file encrypted_file decrypted_file [mode]"
     exit
+}
+
+if (-Not($mode)) {
+    $mode = 1
 }
 
 
@@ -46,7 +50,13 @@ if (Test-Path $file3) {
 ## 公開鍵／秘密鍵ファイルの生成
 ##--------------------------------------------------------##
 
-$keyfiles = $keyfile1 + "`r`n" + $keyfile2 + "`r`n"
+if ($mode -eq 1) {
+    $keyfiles = $keyfile1 + "`n" + $keyfile2 + "`n"
+}
+else {
+    $keyfiles = $keyfile2 + "`n" + $keyfile1 + "`n"
+}
+
 $keyfiles | python $cmd_rsa_main create_key 
 
 
@@ -64,6 +74,7 @@ Write-Host $keyfile2.PadRight(20)":"$key2 -ForegroundColor Yellow
 ## 暗号化処理
 ##--------------------------------------------------------##
 
+Write-Host "python $cmd_rsa_main encrypt $file1 $file2 $keyfile1"
 python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
 
 
@@ -71,6 +82,7 @@ python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
 ## 復号化処理
 ##--------------------------------------------------------##
 
+Write-Host "python $cmd_rsa_main decrypt $file2 $file3 $keyfile2"
 python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
 
 
