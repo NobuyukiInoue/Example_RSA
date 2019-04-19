@@ -1,6 +1,6 @@
 param($keyfile1, $keyfile2, $file1, $file2, $file3, $mode)
 
-Write-Host $MyInvocation.MyCommand.Name $keyfile1 $keyfile2 $file1 $file2 $file3 $mode
+Write-Host "args ="$MyInvocation.MyCommand.Name $keyfile1 $keyfile2 $file1 $file2 $file3 $mode
 
 ##--------------------------------------------------------##
 ## 引数チェック
@@ -57,7 +57,24 @@ else {
     $keyfiles = $keyfile2 + "`n" + $keyfile1 + "`n"
 }
 
-$keyfiles | python $cmd_rsa_main create_key 
+Write-Host "Execute: python"$cmd_rsa_main" create_key"
+$keyfiles | python $cmd_rsa_main create_key > $NULL
+
+
+##--------------------------------------------------------##
+## 暗号化処理
+##--------------------------------------------------------##
+
+Write-Host "Execute: python $cmd_rsa_main encrypt $file1 $file2 $keyfile1"
+python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
+
+
+##--------------------------------------------------------##
+## 復号化処理
+##--------------------------------------------------------##
+
+Write-Host "Execute: python $cmd_rsa_main decrypt $file2 $file3 $keyfile2"
+python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
 
 
 ##--------------------------------------------------------##
@@ -68,22 +85,6 @@ $key1 = Get-Content $keyfile1
 $key2 = Get-Content $keyfile2
 Write-Host $keyfile1.PadRight(20)":"$key1 -ForegroundColor Yellow
 Write-Host $keyfile2.PadRight(20)":"$key2 -ForegroundColor Yellow
-
-
-##--------------------------------------------------------##
-## 暗号化処理
-##--------------------------------------------------------##
-
-Write-Host "python $cmd_rsa_main encrypt $file1 $file2 $keyfile1"
-python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
-
-
-##--------------------------------------------------------##
-## 復号化処理
-##--------------------------------------------------------##
-
-Write-Host "python $cmd_rsa_main decrypt $file2 $file3 $keyfile2"
-python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
 
 
 ##--------------------------------------------------------##

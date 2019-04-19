@@ -4,8 +4,10 @@
 ## 引数チェック
 ##--------------------------------------------------------##
 
+printf "args = ${0} ${1} ${2} ${3} ${4} ${5} ${6}\n"
+
 if [ $# -lt 5 ]; then
-    printf "Usage) ${0} keyfile1 keyfile2 org_file encrypted_file decrypted_file"
+    printf "Usage) ${0} keyfile1 keyfile2 org_file encrypted_file decrypted_file [mode]\n"
     exit
 fi
 
@@ -54,19 +56,37 @@ fi
 ## 公開鍵／秘密鍵ファイルの生成
 ##--------------------------------------------------------##
 
+printf "Execute: python $cmd_rsa_main create_key\n"
+
 if [ $mode -eq 1 ]; then
-    python $cmd_rsa_main create_key <<EOS
+    python $cmd_rsa_main create_key 1> null << EOS
 $keyfile1
 $keyfile2
 EOS
 
 else
-    python $cmd_rsa_main create_key <<EOS
+    python $cmd_rsa_main create_key 1> null << EOS
 $keyfile2
 $keyfile1
 EOS
 
 fi
+
+
+##--------------------------------------------------------##
+## 暗号化処理
+##--------------------------------------------------------##
+
+printf "Execute: python $cmd_rsa_main encrypt $file1 $file2 $keyfile1\n"
+python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
+
+
+##--------------------------------------------------------##
+## 復号化処理
+##--------------------------------------------------------##
+
+printf "Execute: python $cmd_rsa_main decrypt $file2 $file3 $keyfile2\n"
+python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
 
 
 ##--------------------------------------------------------##
@@ -81,21 +101,6 @@ printf "$key_result1\n"
 printf "%-20s:" $keyfile2
 printf "$key_result2\n"
 printf "\033[0;39m"
-
-##--------------------------------------------------------##
-## 暗号化処理
-##--------------------------------------------------------##
-
-printf "python $cmd_rsa_main encrypt $file1 $file2 $keyfile1\n"
-python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
-
-
-##--------------------------------------------------------##
-## 復号化処理
-##--------------------------------------------------------##
-
-printf "python $cmd_rsa_main decrypt $file2 $file3 $keyfile2\n"
-python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
 
 
 ##--------------------------------------------------------##
