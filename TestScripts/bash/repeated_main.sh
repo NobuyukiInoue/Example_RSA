@@ -1,8 +1,8 @@
 #!/bin/bash
 
 cmd="./repeated_test.sh"
-keyfile1="key1.key"
-keyfile2="key2.key"
+keyfile1="public.key"
+keyfile2="private.key"
 file1="./image.jpg"
 file2="./test.bin"
 file3="./test.jpg"
