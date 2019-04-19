@@ -16,6 +16,6 @@ for ($i = 0; $i -lt 10; $i++) {
 Write-Host "#### encypt(private_key) --> decrypt(public_key) ###" -ForegroundColor Magenta
 
 for ($i = 0; $i -lt 10; $i++) {
-    # Write-Host $cmd $keyfile2 $keyfile1 $file1 $file2 $file3 2
-    &$cmd $keyfile2 $keyfile1 $file1 $file2 $file3
+    # Write-Host $cmd $keyfile2 $keyfile1 $file1 $file2 $file3 False
+    &$cmd $keyfile1 $keyfile2 $file1 $file2 $file3 False
 }

@@ -3,7 +3,7 @@ param($keyfile1, $keyfile2, $file1, $file2, $file3, $mode)
 Write-Host "args ="$MyInvocation.MyCommand.Name $keyfile1 $keyfile2 $file1 $file2 $file3 $mode
 
 ##--------------------------------------------------------##
-## ˆø”ƒ`ƒFƒbƒN
+## å¼•æ•°ãƒã‚§ãƒƒã‚¯
 ##--------------------------------------------------------##
 
 if (-Not($keyfile1) -Or -Not($keyfile2) -Or -Not($file1) -Or -Not($file2) -Or -Not($file3)) {
@@ -13,12 +13,20 @@ if (-Not($keyfile1) -Or -Not($keyfile2) -Or -Not($file1) -Or -Not($file2) -Or -N
 }
 
 if (-Not($mode)) {
-    $mode = 1
+    $mode = $TRUE
+}
+else {
+    if ($mode -match "TRUE" -Or $mode -match "True" -Or $mode -match "true") {
+        $mode = $TRUE
+    }
+    else {
+        $mode = $FALSE
+    }
 }
 
 
 ##--------------------------------------------------------##
-## ŒŸØ‘ÎÛƒvƒƒOƒ‰ƒ€‚Ìw’è
+## æ¤œè¨¼å¯¾è±¡ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®æŒ‡å®š
 ##--------------------------------------------------------##
 
 $cmd_rsa_main = "../../rsa_main_mode_bin.py"
@@ -26,7 +34,7 @@ $cmd_filehash = "../../print_FileHash.py"
 
 
 ##--------------------------------------------------------##
-## ‘ÎÛƒtƒ@ƒCƒ‹‚Ì–‘Oíœ
+## å¯¾è±¡ãƒ•ã‚¡ã‚¤ãƒ«ã®äº‹å‰å‰Šé™¤
 ##--------------------------------------------------------##
 
 if (Test-Path $keyfile1) {
@@ -47,38 +55,48 @@ if (Test-Path $file3) {
 
 
 ##--------------------------------------------------------##
-## ŒöŠJŒ®^”é–§Œ®ƒtƒ@ƒCƒ‹‚Ì¶¬
+## å…¬é–‹éµï¼ç§˜å¯†éµãƒ•ã‚¡ã‚¤ãƒ«ã®ç”Ÿæˆ
 ##--------------------------------------------------------##
 
-if ($mode -eq 1) {
-    $keyfiles = $keyfile1 + "`n" + $keyfile2 + "`n"
-}
-else {
-    $keyfiles = $keyfile2 + "`n" + $keyfile1 + "`n"
-}
+$keyfiles = $keyfile1 + "`n" + $keyfile2 + "`n"
 
 Write-Host "Execute: python"$cmd_rsa_main" create_key"
 $keyfiles | python $cmd_rsa_main create_key > $NULL
 
 
 ##--------------------------------------------------------##
-## ˆÃ†‰»ˆ—
+## æš—å·åŒ–å‡¦ç†
 ##--------------------------------------------------------##
 
-Write-Host "Execute: python $cmd_rsa_main encrypt $file1 $file2 $keyfile1"
-python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
+if ($mode) {
+    ## å…¬é–‹éµã§æš—å·åŒ–
+    Write-Host "Execute: python $cmd_rsa_main encrypt $file1 $file2 $keyfile1"
+    python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
+}
+else {
+    ## ç§˜å¯†éµã§æš—å·åŒ–
+    Write-Host "Execute: python $cmd_rsa_main encrypt $file1 $file2 $keyfile2"
+    python $cmd_rsa_main encrypt $file1 $file2 $keyfile2
+}
 
 
 ##--------------------------------------------------------##
-## •œ†ˆ—
+## å¾©å·å‡¦ç†
 ##--------------------------------------------------------##
 
-Write-Host "Execute: python $cmd_rsa_main decrypt $file2 $file3 $keyfile2"
-python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
-
+if ($mode) {
+    ## ç§˜å¯†éµã§å¾©å·
+    Write-Host "Execute: python $cmd_rsa_main decrypt $file2 $file3 $keyfile2"
+    python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
+}
+else {
+    ## å…¬é–‹éµã§å¾©å·
+    Write-Host "Execute: python $cmd_rsa_main decrypt $file2 $file3 $keyfile1"
+    python $cmd_rsa_main decrypt $file2 $file3 $keyfile1
+}
 
 ##--------------------------------------------------------##
-## Œ®ƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ•\¦
+## éµãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’è¡¨ç¤º
 ##--------------------------------------------------------##
 
 $key1 = Get-Content $keyfile1
@@ -88,7 +106,7 @@ Write-Host $keyfile2.PadRight(20)":"$key2 -ForegroundColor Yellow
 
 
 ##--------------------------------------------------------##
-## ˆÃ†‰»‘Oƒtƒ@ƒCƒ‹‚Æ•œ†Œãƒtƒ@ƒCƒ‹‚ÌƒnƒbƒVƒ…’l‚ğo—Í‚·‚é
+## æš—å·åŒ–å‰ãƒ•ã‚¡ã‚¤ãƒ«ã¨å¾©å·å¾Œãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒãƒƒã‚·ãƒ¥å€¤ã‚’å‡ºåŠ›ã™ã‚‹
 ##--------------------------------------------------------##
 
 $result1 = python $cmd_filehash $file1
@@ -98,7 +116,7 @@ Write-Host $file3.PadRight(20)$result3 -ForegroundColor Cyan
 
 
 ##--------------------------------------------------------##
-## ˆê’v^•sˆê’v‚ÌŒ‹‰Ê‚ğ•\¦
+## ä¸€è‡´ï¼ä¸ä¸€è‡´ã®çµæœã‚’è¡¨ç¤º
 ##--------------------------------------------------------##
 
 if ($result1 -eq $result3) {

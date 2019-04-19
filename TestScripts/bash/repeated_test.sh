@@ -23,6 +23,7 @@ else
     mode=1
 fi
 
+
 ##--------------------------------------------------------##
 ## 検証対象プログラムの指定
 ##--------------------------------------------------------##
@@ -58,36 +59,39 @@ fi
 
 printf "Execute: python $cmd_rsa_main create_key\n"
 
-if [ $mode -eq 1 ]; then
-    python $cmd_rsa_main create_key 1> /dev/null << EOS
+python $cmd_rsa_main create_key 1> /dev/null << EOS
 $keyfile1
 $keyfile2
 EOS
-
-else
-    python $cmd_rsa_main create_key 1> /dev/null << EOS
-$keyfile2
-$keyfile1
-EOS
-
-fi
 
 
 ##--------------------------------------------------------##
 ## 暗号化処理
 ##--------------------------------------------------------##
 
-printf "Execute: python $cmd_rsa_main encrypt $file1 $file2 $keyfile1\n"
-python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
-
+if [ $mode -eq 1 ]; then
+    ## 公開鍵で暗号化
+    printf "Execute: python $cmd_rsa_main encrypt $file1 $file2 $keyfile1\n"
+    python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
+else
+    ## 秘密鍵で暗号化
+    printf "Execute: python $cmd_rsa_main encrypt $file1 $file2 $keyfile2\n"
+    python $cmd_rsa_main encrypt $file1 $file2 $keyfile2
+fi
 
 ##--------------------------------------------------------##
 ## 復号処理
 ##--------------------------------------------------------##
 
-printf "Execute: python $cmd_rsa_main decrypt $file2 $file3 $keyfile2\n"
-python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
-
+if [ $mode -eq 1 ]; then
+    ## 秘密鍵で復号
+    printf "Execute: python $cmd_rsa_main decrypt $file2 $file3 $keyfile2\n"
+    python $cmd_rsa_main decrypt $file2 $file3 $keyfile2
+else
+    ## 公開鍵で復号
+    printf "Execute: python $cmd_rsa_main decrypt $file2 $file3 $keyfile1\n"
+    python $cmd_rsa_main decrypt $file2 $file3 $keyfile1
+fi
 
 ##--------------------------------------------------------##
 ## 鍵ファイルの内容を表示

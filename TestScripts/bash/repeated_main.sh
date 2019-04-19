@@ -18,5 +18,5 @@ done
 echo -e "\033[0;35m#### encrypt(private_key) --> decrypt(public_key) ###\033[0;39m"
 
 for ((i=0; i < 10; i++)); do
-    $cmd $keyfile2 $keyfile1 $file1 $file2 $file3
+    $cmd $keyfile1 $keyfile2 $file1 $file2 $file3 0
 done
