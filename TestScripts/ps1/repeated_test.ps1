@@ -70,7 +70,7 @@ python $cmd_rsa_main encrypt $file1 $file2 $keyfile1
 
 
 ##--------------------------------------------------------##
-## 復号化処理
+## 復号処理
 ##--------------------------------------------------------##
 
 Write-Host "Execute: python $cmd_rsa_main decrypt $file2 $file3 $keyfile2"
@@ -88,12 +88,11 @@ Write-Host $keyfile2.PadRight(20)":"$key2 -ForegroundColor Yellow
 
 
 ##--------------------------------------------------------##
-## 変換前ファイルと変換後ファイルのハッシュ値を出力する
+## 暗号化前ファイルと復号後ファイルのハッシュ値を出力する
 ##--------------------------------------------------------##
 
 $result1 = python $cmd_filehash $file1
 $result3 = python $cmd_filehash $file3
-
 Write-Host $file1.PadRight(20)$result1 -ForegroundColor Cyan
 Write-Host $file3.PadRight(20)$result3 -ForegroundColor Cyan
 

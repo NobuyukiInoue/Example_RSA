@@ -8,12 +8,12 @@ RSA暗号化方式を独自実装したプログラムです。
 
 どちらのプログラムも、
 
-* 公開鍵で暗号化し、秘密鍵で復号化する（暗号化データの送受信）
-* 秘密鍵で暗号化し、公開鍵で復号化する（電子署名の送付・確認）
+* 公開鍵で暗号化し、秘密鍵で復号する（暗号化データの送受信）
+* 秘密鍵で暗号化し、公開鍵で復号する（電子署名の送付・確認）
 
 ことができます。
 
-そのほか、元ファイルと復元後のファイルの内容のチェック用に、ファイルのハッシュ値を出力するプログラムとして、
+そのほか、元ファイルと復号後のファイルの内容のチェック用に、ファイルのハッシュ値を出力するプログラムとして、
 
 * ファイルのハッシュ値出力ツール print_FileHash.py
 
@@ -68,7 +68,7 @@ MS-WindowsのPowerShellでリダイレクトを行った場合、デフォルト
 <br>
 <br>
 
-### 1-3. 暗号化後の文字列を保存したファイルから平文の文字列を復号化する（rsa_main_mode_txt.py）
+### 1-3. 暗号化後の文字列を保存したファイルから平文の文字列を復号する（rsa_main_mode_txt.py）
 "rsa_main_mode_txt.py decrypt"に続けて、暗号化後の出力結果ファイル、秘密鍵ファイル、文字コードを指定して
 rsa_main_mode_txt.pyを実行します。
 
@@ -82,7 +82,7 @@ PS D:\work\Example_RSA> python rsa_main_mode_txt.py decrypt 暗号化後の出�
 <br>
 <br>
 
-### 1-4. 暗号化と復号化の実行例（rsa_main_mode_txt.py）
+### 1-4. 暗号化と復号の実行例（rsa_main_mode_txt.py）
 ```
 $ cat file1.txt
 暗号化の実験です。
@@ -135,24 +135,24 @@ $ python rsa_main_mode_bin.py encrypt 暗号化したい元ファイル名 暗�
 <br>
 <br>
 
-### 2-3. 暗号化後のファイルから元のファイルを復号化する（rsa_main_mode_bin.py）
-"rsa_main_mode_bin.py decrypt"に続けて、暗号化後のファイル名、復元後のファイル名、秘密鍵ファイルを指定して
+### 2-3. 暗号化後のファイルから元のファイルを復号する（rsa_main_mode_bin.py）
+"rsa_main_mode_bin.py decrypt"に続けて、暗号化後のファイル名、復号後のファイル名、秘密鍵ファイルを指定して
 rsa_main_mode_bin.pyを実行します。
 
 ```
-$ python rsa_main_mode_bin.py decrypt 暗号化後の出力結果ファイル 復元後のファイル名 秘密鍵ファイル
+$ python rsa_main_mode_bin.py decrypt 暗号化後の出力結果ファイル 復号後のファイル名 秘密鍵ファイル
 ```
 <br>
 <br>
 
-### 2-4. 暗号化と復号化の実行例（rsa_main_mode_bin.py）
+### 2-4. 暗号化と復号の実行例（rsa_main_mode_bin.py）
 
 暗号化処理例
 ```
 $ python rsa_main_mode_bin.py encrypt image1.jpg testimage.bin rsa_public.key
 ```
 
-復号化処理例
+復号処理例
 ```
 $ python rsa_main_mode_bin.py decrypt testimage.bin image2.jpg rsa_private.key
 ```
@@ -161,23 +161,23 @@ $ python rsa_main_mode_bin.py decrypt testimage.bin image2.jpg rsa_private.key
 
 ## 3. 検証用スクリプト
 
-下記のサブディレクトリに、鍵の生成、暗号化、復号化処理と、元ファイルと復元後ファイルのハッシュ値比較を行うスクリプトを配置しています。
+下記のサブディレクトリに、鍵の生成、暗号化、復号処理と、元ファイルと復号後ファイルのハッシュ値比較を行うスクリプトを配置しています。
 それぞれ、
 
-* 鍵ペアの生成および公開鍵による暗号化および秘密鍵による復号化
-* 鍵ペアの生成および秘密鍵による暗号化および公開鍵による復号化
+* 鍵ペアの生成および公開鍵による暗号化および秘密鍵による復号
+* 鍵ペアの生成および秘密鍵による暗号化および公開鍵による復号
 
 を10回づつ実行します。
 <br>
 
 ### bash版
 * ./TestScripts/bash/repeated_main.sh ... 親側スクリプト
-* ./TestScripts/bash/repeated_test.sh ... 鍵の生成、暗号化、復号化を１回だけ実行
+* ./TestScripts/bash/repeated_test.sh ... 鍵の生成、暗号化、復号を１回だけ実行
 <br>
 
 ### PowerShell版
 * ./TestScripts/ps1/repeated_main.ps1 ... 親側スクリプト
-* ./TestScripts/ps1/repeated_test.ps1 ... 鍵の生成、暗号化、復号化を１回だけ実行
+* ./TestScripts/ps1/repeated_test.ps1 ... 鍵の生成、暗号化、復号を１回だけ実行
 <br>
 
 
