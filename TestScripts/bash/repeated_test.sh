@@ -59,13 +59,13 @@ fi
 printf "Execute: python $cmd_rsa_main create_key\n"
 
 if [ $mode -eq 1 ]; then
-    python $cmd_rsa_main create_key 1> null << EOS
+    python $cmd_rsa_main create_key 1> /dev/null << EOS
 $keyfile1
 $keyfile2
 EOS
 
 else
-    python $cmd_rsa_main create_key 1> null << EOS
+    python $cmd_rsa_main create_key 1> /dev/null << EOS
 $keyfile2
 $keyfile1
 EOS
