@@ -124,4 +124,14 @@ if ($result1 -eq $result3) {
 }
 else {
     Write-Host "<<Failed>>" -ForegroundColor Red
+    
+    ##--------------------------------##
+    ## 鍵ファイルをバックアップ
+    ##--------------------------------##
+    $timestamp1=$(Get-ItemProperty $keyfile1).LastWriteTime.ToString('yyyyMMdd_HHmmss')
+    $timestamp2=$(Get-ItemProperty $keyfile2).LastWriteTime.ToString('yyyyMMdd_HHmmss')
+    $keyfile_backup1 = $keyfile1 + ".err_" + $timestamp1 + ".txt"
+    $keyfile_backup2 = $keyfile2 + ".err_" + $timestamp2 + ".txt"
+    Copy-Item $keyfile1 $keyfile_backup1
+    Copy-Item $keyfile2 $keyfile_backup2
 }

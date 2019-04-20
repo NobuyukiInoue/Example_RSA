@@ -130,4 +130,10 @@ if [ "$result1" = "$result3" ]; then
     printf "\033[0;32m<<Success>>\033[0;39m\n"
 else
     printf "\033[0;31m<<Failed>>\033[0;39m\n"
+
+    ## 鍵ファイルをバックアップ
+    timestamp1=`date +%Y%m%d%H%M%S -r $keyfile1`
+    timestamp2=`date +%Y%m%d%H%M%S -r $keyfile2`
+    cp -p $keyfile1 $keyfile1.err_$timestamp1".txt"
+    cp -p $keyfile2 $keyfile2.err_$timestamp2".txt"
 fi
