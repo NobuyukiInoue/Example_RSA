@@ -22,7 +22,7 @@
             ]
         },
         {
-            "name": "Python: encrypt",
+            "name": "Python: rsa_main_mode_txt.py encrypt",
             "type": "python",
             "request": "launch",
             "program": "${file}",
@@ -35,7 +35,7 @@
             ]
         },
         {
-            "name": "Python: decrypt",
+            "name": "Python: rsa_main_mode_txt.py decrypt",
             "type": "python",
             "request": "launch",
             "program": "${file}",
@@ -48,7 +48,7 @@
             ]
         },
         {
-            "name": "Python: rsa_binary.py encrypt1",
+            "name": "Python: rsa_main_mode_bin.py encrypt1",
             "type": "python",
             "request": "launch",
             "program": "${file}",
@@ -61,7 +61,7 @@
             ]
         },
         {
-            "name": "Python: rsa_binary.py decrypt1",
+            "name": "Python: rsa_main_mode_bin.py decrypt1",
             "type": "python",
             "request": "launch",
             "program": "${file}",
@@ -74,7 +74,7 @@
             ]
         },
         {
-            "name": "Python: rsa_binary.py encrypt2",
+            "name": "Python: rsa_main_mode_bin.py encrypt2",
             "type": "python",
             "request": "launch",
             "program": "${file}",
@@ -82,20 +82,20 @@
             "args":[
                 "encrypt",
                 "./base64_work/image.jpg",
-                "image.bin",
+                "test.bin",
                 "rsa_public.key"
             ]
         },
         {
-            "name": "Python: rsa_binary.py decrypt2",
+            "name": "Python: rsa_main_mode_bin.py decrypt2",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "args":[
                 "decrypt",
-                "image.bin",
-                "image.jpg",
+                "test.bin",
+                "test.jpg",
                 "rsa_private.key"
             ]
         },
@@ -122,34 +122,6 @@
             "request": "launch",
             "module": "enter-your-module-name-here",
             "console": "integratedTerminal"
-        },
-        {
-            "name": "Python: Django",
-            "type": "python",
-            "request": "launch",
-            "program": "${workspaceFolder}/manage.py",
-            "console": "integratedTerminal",
-            "args": [
-                "runserver",
-                "--noreload",
-                "--nothreading"
-            ],
-            "django": true
-        },
-        {
-            "name": "Python: Flask",
-            "type": "python",
-            "request": "launch",
-            "module": "flask",
-            "env": {
-                "FLASK_APP": "app.py"
-            },
-            "args": [
-                "run",
-                "--no-debugger",
-                "--no-reload"
-            ],
-            "jinja": true
         },
         {
             "name": "Python: Current File (External Terminal)",
