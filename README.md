@@ -171,32 +171,36 @@ $ python rsa_main_mode_bin.py decrypt testimage.bin image2.jpg rsa_private.key
 <br>
 
 ### bash版
-* ./TestScripts/bash/repeated_main.sh ... 親側スクリプト
-* ./TestScripts/bash/repeated_test.sh ... 鍵の生成、暗号化、復号を１回だけ実行
+* ./TestScripts_mode_bin/bash/repeated_main_mode_bin.sh ... 親側スクリプト
+* ./TestScripts_mode_bin/bash/test_mode_bin.sh ... 鍵の生成、暗号化、復号を１回だけ実行
+* ./TestScripts_mode_txt/bash/repeated_main_mode_txt.sh ... 親側スクリプト
+* ./TestScripts_mode_txt/bash/test_mode_txt.sh ... 鍵の生成、暗号化、復号を１回だけ実行
 <br>
 
 ### PowerShell版
-* ./TestScripts/ps1/repeated_main.ps1 ... 親側スクリプト
-* ./TestScripts/ps1/repeated_test.ps1 ... 鍵の生成、暗号化、復号を１回だけ実行
+* ./TestScripts_mode_bin/ps1/repeated_main_mode_bin.ps1 ... 親側スクリプト
+* ./TestScripts_mode_bin/ps1/test_mode_bin.ps1 ... 鍵の生成、暗号化、復号を１回だけ実行
+* ./TestScripts_mode_txt/ps1/repeated_main_mode_txt.ps1 ... 親側スクリプト
+* ./TestScripts_mode_txt/ps1/test_mode_txt.ps1 ... 鍵の生成、暗号化、復号を１回だけ実行
 <br>
 
 
 ### 3-1. 検証用スクリプト実行例(bash版)
 
 ```
-$ cd TestScripts/bash
+$ cd TestScripts_mode_bin/bash
 ```
 
 ```
-$ ./repeated_main.sh
+$ ./repeated_main_mode_bin.sh
 #### encypt(public_key) --> decrypt(private_key) ###
-args = ./repeated_test.sh key1.key key2.key ./image.jpg ./test.bin ./test.jpg
+args = ./repeated_test.sh key1.key key2.key ./original.jpg ./test.bin ./test.jpg
 Execute: python ../../rsa_main_mode_bin.py create_key
-Execute: python ../../rsa_main_mode_bin.py encrypt ./image.jpg ./test.bin key1.key
+Execute: python ../../rsa_main_mode_bin.py encrypt ./original.jpg ./test.bin key1.key
 Execute: python ../../rsa_main_mode_bin.py decrypt ./test.bin ./test.jpg key2.key
 key1.key            :390703,4562471
 key2.key            :7,4562471
-./image.jpg         :SHA2 : 351efe5e4d33d7ca16c86b3137c78011
+./original.jpg      :SHA2 : 351efe5e4d33d7ca16c86b3137c78011
 ./test.jpg          :SHA2 : 351efe5e4d33d7ca16c86b3137c78011
 <<Success>>
    ...
@@ -214,13 +218,13 @@ PS D:\work\Example_RSA> cd .\TestScripts\ps1
 ```
 PS D:\work\Example_RSA\TestScripts\ps1>.\repeated_main.ps1
 #### encypt(public_key) --> decrypt(private_key) ###
-args = repeated_test.ps1 ./key1.key ./key2.key ./image.jpg ./test.bin ./test.jpg
+args = repeated_test.ps1 ./key1.key ./key2.key ./original.jpg ./test.bin ./test.jpg
 Execute: python ../../rsa_main_mode_bin.py create_key
-Execute: python ../../rsa_main_mode_bin.py encrypt ./image.jpg ./test.bin ./key1.key
+Execute: python ../../rsa_main_mode_bin.py encrypt ./original.jpg ./test.bin ./key1.key
 Execute: python ../../rsa_main_mode_bin.py decrypt ./test.bin ./test.jpg ./key2.key
 ./key1.key           : 5,6107737
 ./key2.key           : 813701,6107737
-./image.jpg          SHA2 : 351efe5e4d33d7ca16c86b3137c78011
+./original.jpg       SHA2 : 351efe5e4d33d7ca16c86b3137c78011
 ./test.jpg           SHA2 : 351efe5e4d33d7ca16c86b3137c78011
 <<Sucess>>
     ....
