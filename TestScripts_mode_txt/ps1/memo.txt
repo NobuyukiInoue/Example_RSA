@@ -1,0 +1,2 @@
+test_mode_txt.ps1 は、SJIS向けに記述しています。
+macOS/Linux環境では動作しませんのでご注意ください。
