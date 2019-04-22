@@ -64,14 +64,20 @@ def generate_keys(p, q):
     """
     与えられた 2 つの素数 p, q から秘密鍵と公開鍵を生成する。
     """
+
+    """２つの素数(p, q)の積nを求める"""
     N = p * q
+
+    """p - 1 と q - 1 の最小公倍数を求める"""
     L = lcm(p - 1, q - 1)
 
+    """公開鍵で使用するeを算出する"""
     for i in range(2, L):
         if math.gcd(i, L) == 1:
             E = i
             break
 
+    """秘密鍵で使用するdを算出する"""
     for i in range(2, L):
         if (E * i) % L == 1:
             D = i
@@ -97,7 +103,7 @@ def encrypt_from_text(plain_text, public_key):
     """平文文字列を数値に変換する"""
     plain_integers = [ord(char) for char in plain_text]
 
-    """公開鍵の２つの素数を使って暗号化後の数値を生成する"""
+    """公開鍵（eと２つの素数の積n）を使って暗号化後の数値を生成する"""
     encrypted_integers = [pow(i, E, N) for i in plain_integers]
 
     """生成した数値を16進数文字列として出力する"""
@@ -117,7 +123,7 @@ def decrypt_to_text(encrypted_text, private_key):
         """16進数として8文字づつ取り出し、整数に変換する"""
         encrypted_integers.append(int(encrypted_text[i:i+8], 16))
 
-    """秘密鍵の２つの素数を使って、復号後の数値を求める"""
+    """秘密鍵（dと２つの素数の積n）を使って、復号後の数値を求める"""
     decrypted_integers = [pow(i, D, N) for i in encrypted_integers]
 
     """復号後の数値を文字に変換し、連結する"""
@@ -132,7 +138,7 @@ def encrypt_from_binary(plain_integers, public_key):
     """
     E, N = public_key
 
-    """公開鍵の２つの素数を使って暗号化後の数値を生成する"""
+    """公開鍵（eと２つの素数の積n）を使って暗号化後の数値を生成する"""
     return [pow(i, E, N) for i in plain_integers]
 
 
@@ -142,7 +148,7 @@ def decrypt_to_binary(encrypted_integers, private_key):
     """
     D, N = private_key
     
-    """秘密鍵の２つの素数を使って、復号後の数値を求める"""
+    """秘密鍵（dと２つの素数の積n）を使って、復号後の数値を求める"""
     return [pow(i, D, N) for i in encrypted_integers]
 
 
