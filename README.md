@@ -200,8 +200,8 @@ Execute: python ../../rsa_main_mode_bin.py encrypt ./original.jpg ./test.bin key
 Execute: python ../../rsa_main_mode_bin.py decrypt ./test.bin ./test.jpg key2.key
 key1.key            :390703,4562471
 key2.key            :7,4562471
-./original.jpg      :SHA2 : 351efe5e4d33d7ca16c86b3137c78011
-./test.jpg          :SHA2 : 351efe5e4d33d7ca16c86b3137c78011
+./original.jpg      :MD5 : 351efe5e4d33d7ca16c86b3137c78011
+./test.jpg          :MD5 : 351efe5e4d33d7ca16c86b3137c78011
 <<Success>>
    ...
    ...
@@ -224,8 +224,8 @@ Execute: python ../../rsa_main_mode_bin.py encrypt ./original.jpg ./test.bin ./k
 Execute: python ../../rsa_main_mode_bin.py decrypt ./test.bin ./test.jpg ./key2.key
 ./key1.key           : 5,6107737
 ./key2.key           : 813701,6107737
-./original.jpg       SHA2 : 351efe5e4d33d7ca16c86b3137c78011
-./test.jpg           SHA2 : 351efe5e4d33d7ca16c86b3137c78011
+./original.jpg       MD5 : 351efe5e4d33d7ca16c86b3137c78011
+./test.jpg           MD5 : 351efe5e4d33d7ca16c86b3137c78011
 <<Sucess>>
     ....
     ....

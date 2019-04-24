@@ -19,23 +19,34 @@ def main():
     f.close()
 
     if argc >= 3:
-        if argv[2] == "SHA2":
-            SHA2 = hashlib.md5(BinaryData).hexdigest()
-            print('SHA2 :', SHA2)
-        if argv[2] == "SHA1":
-            SHA1 = hashlib.sha1(BinaryData).hexdigest()
-            print('SHA1 :', SHA1)
-        elif argv[2] == "MD5":
-            MD5 = hashlib.md5(BinaryData).hexdigest()
-            print('MD5 :', MD5)
-        else:
-            print("%s not found." %argv[2])
+        algorithm = argv[2].upper()
     else:
-        SHA2 = hashlib.md5(BinaryData).hexdigest()
-        print('SHA2 :', SHA2)
+        algorithm = "MD5"
+
+    if algorithm == "MD5":
+        result = hashlib.md5(BinaryData).hexdigest()
+        print('MD5 :', result)
+    elif algorithm == "SHA1":
+        result = hashlib.sha1(BinaryData).hexdigest()
+        print('SHA1 :', result)
+    elif algorithm == "SHA224":
+        result = hashlib.sha224(BinaryData).hexdigest()
+        print('SHA224 :', result)
+    elif algorithm == "SHA256":
+        result = hashlib.sha256(BinaryData).hexdigest()
+        print('SHA256 :', result)
+    elif algorithm == "SHA384":
+        result = hashlib.sha384(BinaryData).hexdigest()
+        print('SHA384 :', result)
+    elif algorithm == "SHA512":
+        result = hashlib.sha512(BinaryData).hexdigest()
+        print('SHA512 :', result)
+    else:
+        result = hashlib.md5(BinaryData).hexdigest()
+        print('MD5 :', result)
 
 def exit_msg(argv0):
-    print("Usage: python %s [target_file] [SHA1 | MD5]" %argv0)
+    print("Usage: python %s [target_file] [MD5 | SHA1 | SHA224 | SHA256 | SHA384 | SHA512]" %argv0)
     exit(0)
 
 
