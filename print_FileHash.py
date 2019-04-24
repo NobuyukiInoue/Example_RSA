@@ -42,8 +42,7 @@ def main():
         result = hashlib.sha512(BinaryData).hexdigest()
         print('SHA512 :', result)
     else:
-        result = hashlib.md5(BinaryData).hexdigest()
-        print('MD5 :', result)
+        print("%s is not defined." %argv[2])
 
 def exit_msg(argv0):
     print("Usage: python %s [target_file] [MD5 | SHA1 | SHA224 | SHA256 | SHA384 | SHA512]" %argv0)
