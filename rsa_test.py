@@ -15,7 +15,7 @@ def main():
     p, q = rsa.calc_p_q(30, 3000)
     public_key, private_key = rsa.generate_keys(p, q)
 
-    plain_text = "この文字列を暗号化／復号化するよ♪"
+    plain_text = "この文字列を暗号化／復号するよ♪"
 
     print("秘密鍵:(E = %d, N = %d)" %(public_key[0], public_key[1]))
     print("公開鍵:(D = %d, N = %d)" %(private_key[0], private_key[1]))
