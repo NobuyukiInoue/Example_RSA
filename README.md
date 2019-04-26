@@ -1,5 +1,11 @@
 # Example_RSA
+
 RSA暗号化方式を独自実装したプログラムです。
+
+HackerzLab.博多 Vol.21 RSA公開鍵暗号化方式の実装ハンズオン
+https://qiita.com/gx3n-inue/items/d8c33761957ba8c64312
+<br>
+<br>
 
 * テキストファイル専用の rsa_main_mode_txt.py
 * バイナリモード（テキスト形式にも対応）の rsa_main_mode_bin.py
