@@ -110,6 +110,16 @@
             ]
         },
         {
+            "name": "Python: rsa_trial_division.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args":[
+                "4755749"
+            ]
+        },
+        {
             "name": "Python: Attach",
             "type": "python",
             "request": "attach",
