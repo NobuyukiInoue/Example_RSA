@@ -25,9 +25,9 @@ def main():
         exit(1)
     
     for i in range(1, 512 + 1):
-        if N <= pow(2, i):
+        if N < pow(2, i):
             break
-    print("%d <= pow(2, %d)" %(N, i))
+    print("%d < pow(2, %d)" %(N, i))
 
     p_q = trial_division(N)
     print(p_q)
