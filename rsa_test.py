@@ -31,9 +31,9 @@ def main():
     print("平文:%s" %decrypted_text)
 
     if plain_text == decrypted_text:
-        print("Success." %(p, q))
+        print("Success.")
     else:
-        print("Failed." %(p, q))
+        print("Failed.")
 
 if __name__ == "__main__":
     main()
