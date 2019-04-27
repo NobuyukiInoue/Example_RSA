@@ -112,12 +112,13 @@ def trial_division(n):
             n //= num
             prime_list.append(num)
 
-    """リストが空ならそれは素数"""
+    """リストが空の場合は素数と判断する"""
     if not prime_list:
-        return 'prime number'
+        return ("%d is a prime number." %n)
     else:
         prime_list.append(n)
         return prime_list
+
 
 if __name__ == "__main__":
     main()
