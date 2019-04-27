@@ -17,6 +17,7 @@ def main():
 
     plain_text = "この文字列を暗号化／復号するよ♪"
 
+    print("p = %d, q = %d" %(p, q))
     print("秘密鍵:(E = %d, N = %d)" %(public_key[0], public_key[1]))
     print("公開鍵:(D = %d, N = %d)" %(private_key[0], private_key[1]))
     print("平文:%s" %plain_text)
@@ -30,9 +31,9 @@ def main():
     print("平文:%s" %decrypted_text)
 
     if plain_text == decrypted_text:
-        print("p = %d, q = %d, Success." %(p, q))
+        print("Success." %(p, q))
     else:
-        print("p = %d, q = %d, Fail." %(p, q))
+        print("Failed." %(p, q))
 
 if __name__ == "__main__":
     main()
