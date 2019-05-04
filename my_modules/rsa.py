@@ -154,6 +154,6 @@ def decrypt_to_binary(encrypted_integers, private_key):
 
 def sanitize(encrypted_text):
     """
-    UnicodeEncodeError が置きないようにする。
+    UnicodeEncodeErrorを回避する。
     """
     return encrypted_text.encode('utf-8', 'replace').decode('utf-8')
