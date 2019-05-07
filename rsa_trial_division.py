@@ -5,6 +5,7 @@ import math
 import os
 import struct
 import sys
+import time
 from my_modules import rsa
 
 
@@ -29,8 +30,13 @@ def main():
             break
     print("%d < pow(2, %d)" %(N, i))
 
+    time0 = time.time()
+
     p_q = trial_division(N)
+    time1 = time.time()
+
     print(p_q)
+    print("Execution time ... %f[s]" %(time1 - time0))
 
     if len(p_q) != 2:
         """素因数分解の結果が２つの値ではない場合は終了する"""
