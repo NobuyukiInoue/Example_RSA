@@ -34,7 +34,7 @@ https://qiita.com/gx3n-inue/items/d8c33761957ba8c64312
 テキスト形式(SJISまたはUTF-8)の平文にのみ対応しています。
 <br>
 暗号化後の結果は標準出力に出力します。
-結果をファイルに保存したい場合はリダイレクトを利用します。
+結果をファイルに保存したい場合はリダイレクト（PowerShellの場合は Out-Fileコマンドレット）を利用します。
 <br>
 <br>
 
@@ -78,8 +78,8 @@ $ python rsa_main_mode_txt.py encrypt 平文ファイル 公開鍵ファイル u
 PS D:\work\Example_RSA> python rsa_main_mode_txt.py encrypt 平文ファイル 公開鍵ファイル sjis | Out-File -Encoding ascii 出力ファイル名
 ```
 
-MS-WindowsのPowerShellでリダイレクトまたはOut-Fileコマンドレットでファイルに出力した場合、デフォルトでは文字コードがUnicodeとして出力されるため、
--Encoding ascii で出力しておいてください。
+MS-WindowsのPowerShellでリダイレクトまたはOut-Fileコマンドレットでファイルに出力した場合、デフォルトでは文字コードがUnicodeとして出力されるため、-Encoding ascii で出力しておいてください。
+<br>
 （もしくは、出力後の結果をテキストエディタ等でsjisまたはutf-8に変換して再保存しておいてください。）
 <br>
 <br>
@@ -94,6 +94,8 @@ $ python rsa_main_mode_txt.py decrypt 暗号化後の出力結果ファイル �
 ```
 
 または
+<BR>
+<BR>
 powershell
 
 ```
