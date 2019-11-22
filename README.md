@@ -41,22 +41,27 @@ https://qiita.com/gx3n-inue/items/d8c33761957ba8c64312
 ### 1-1. キーの生成（rsa_main_mode_txt.py）
 公開鍵／秘密鍵を生成します。
 生成された鍵は、デフォルトではそれぞれ"rsa_public.key", "rsa_private.key"というファイルに出力されます。
+
 ```
 $ python rsa_main_mode_txt.py create_key
 Public key filename [rsa_public.key]:
 Private key filename [rsa_private.key]:
 Create Keys done.
 ```
+
 <br>
 <br>
 
 ### 1-2. 平文ファイルから暗号化後の文字列を生成する（rsa_main_mode_txt.py）
 "rsa_main_mode_txt.py encrypt"に続けて、平文ファイル、公開鍵ファイル 平文ファイルの文字コードを指定して
 rsa_main_mode_txt.pyを実行します。
+
 ```
 $ python rsa_main_mode_txt.py encrypt 平文ファイル 公開鍵ファイル utf-8
 ```
+
 または
+
 ```
 PS D:\work\Example_RSA> python rsa_main_mode_txt.py encrypt 平文ファイル 公開鍵ファイル sjis
 ```
@@ -66,12 +71,16 @@ PS D:\work\Example_RSA> python rsa_main_mode_txt.py encrypt 平文ファイル �
 ```
 $ python rsa_main_mode_txt.py encrypt 平文ファイル 公開鍵ファイル utf-8 > 出力ファイル名
 ```
+
 または
+
 ```
-PS D:\work\Example_RSA> python rsa_main_mode_txt.py encrypt 平文ファイル 公開鍵ファイル sjis > 出力ファイル名
+PS D:\work\Example_RSA> python rsa_main_mode_txt.py encrypt 平文ファイル 公開鍵ファイル sjis | Out-File -Encoding ascii 出力ファイル名
 ```
-MS-WindowsのPowerShellでリダイレクトを行った場合、デフォルトでは文字コードがUnicodeとして出力されるため、
-必要に応じて出力後の結果をテキストエディタ等でsjisまたはutf-8に変換して再保存しておいてください。
+
+MS-WindowsのPowerShellでリダイレクトまたはOut-Fileコマンドレットでファイルに出力した場合、デフォルトでは文字コードがUnicodeとして出力されるため、
+-Encoding ascii で出力しておいてください。
+（もしくは、出力後の結果をテキストエディタ等でsjisまたはutf-8に変換して再保存しておいてください。）
 <br>
 <br>
 
@@ -79,17 +88,23 @@ MS-WindowsのPowerShellでリダイレクトを行った場合、デフォルト
 "rsa_main_mode_txt.py decrypt"に続けて、暗号化後の出力結果ファイル、秘密鍵ファイル、文字コードを指定して
 rsa_main_mode_txt.pyを実行します。
 
+bash
 ```
 $ python rsa_main_mode_txt.py decrypt 暗号化後の出力結果ファイル 秘密鍵ファイル utf-8
 ```
+
 または
+powershell
+
 ```
 PS D:\work\Example_RSA> python rsa_main_mode_txt.py decrypt 暗号化後の出力結果ファイル 秘密鍵ファイル sjis
 ```
+
 <br>
 <br>
 
 ### 1-4. 暗号化と復号の実行例（rsa_main_mode_txt.py）
+
 ```
 $ cat file1.txt
 暗号化の実験です。
@@ -110,6 +125,7 @@ $ python rsa_main_mode_txt.py decrypt file2.txt rsa_private.key utf-8
 暗号化の実験です。
 読めますか？
 ```
+
 <br>
 <br>
 
@@ -124,21 +140,25 @@ $ python rsa_main_mode_txt.py decrypt file2.txt rsa_private.key utf-8
 ### 2-1. キーの生成（rsa_main_mode_bin.py）
 公開鍵／秘密鍵を生成します。
 生成された鍵は、デフォルトではそれぞれ"rsa_public.key", "rsa_private.key"というファイルに出力されます。
+
 ```
 $ python rsa_main_mode_bin.py create_key
 Public key filename [rsa_public.key]:
 Private key filename [rsa_private.key]:
 Create Keys done.
 ```
+
 <br>
 <br>
 
 ### 2-2. 元ファイルから暗号化ファイルを生成する（rsa_main_mode_bin.py）
 "rsa_main_mode_bin.py encrypt"に続けて、暗号化したい元ファイル名、暗号化後のファイル名、公開鍵ファイルを指定して
 rsa_main_mode_bin.pyを実行します。
+
 ```
 $ python rsa_main_mode_bin.py encrypt 暗号化したい元ファイル名 暗号化後のファイル名 公開鍵ファイル
 ```
+
 <br>
 <br>
 
@@ -149,20 +169,24 @@ rsa_main_mode_bin.pyを実行します。
 ```
 $ python rsa_main_mode_bin.py decrypt 暗号化後の出力結果ファイル 復号後のファイル名 秘密鍵ファイル
 ```
+
 <br>
 <br>
 
 ### 2-4. 暗号化と復号の実行例（rsa_main_mode_bin.py）
 
 暗号化処理例
+
 ```
 $ python rsa_main_mode_bin.py encrypt image1.jpg testimage.bin rsa_public.key
 ```
 
 復号処理例
+
 ```
 $ python rsa_main_mode_bin.py decrypt testimage.bin image2.jpg rsa_private.key
 ```
+
 <br>
 <br>
 
@@ -213,6 +237,7 @@ key2.key            :7,4562471
    ...
    ...
 ```
+
 <br>
 <br>
 
@@ -237,5 +262,6 @@ Execute: python ../../rsa_main_mode_bin.py decrypt ./test.bin ./test.jpg ./key2.
     ....
     ....
 ```
+
 <br>
 <br>
